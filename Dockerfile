@@ -11,14 +11,14 @@ RUN pnpm run -r build
 RUN pnpm deploy --filter=service_1 --prod /prod/service_1
 RUN pnpm deploy --filter=service_2 --prod /prod/service_2
 
-FROM base AS app1
+FROM base AS service_1
 COPY --from=build /prod/service_1 /prod/service_1
 WORKDIR /prod/service_1
 EXPOSE 3000
 CMD [ "pnpm", "start" ]
 
-# FROM base AS app2
-# COPY --from=build /prod/service_2 /prod/service_2
-# WORKDIR /prod/service_2
-# EXPOSE 3001
-# CMD [ "pnpm", "start" ]
+FROM base AS service_2
+COPY --from=build /prod/service_2 /prod/service_2
+WORKDIR /prod/service_2
+EXPOSE 3001
+CMD [ "pnpm", "start" ]

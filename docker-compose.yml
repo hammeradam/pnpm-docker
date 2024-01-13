@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  service_1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: service_1
+    ports:
+      - '3000:3000'
+    environment:
+      - PATH_PREFIX=/api/service_1
+    labels:
+      - 'traefik.http.routers.service_1.rule=(Host(`app.localhost`) && PathPrefix(`/api/service_1`))'
+    depends_on:
+      - traefik
+  service_2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: service_2
+    ports:
+      - '3001:3001'
+    environment:
+      - PATH_PREFIX=/api/service_2
+    labels:
+      - 'traefik.http.routers.service_2.rule=(Host(`app.localhost`) && PathPrefix(`/api/service_2`))'
+    depends_on:
+      - traefik
+  traefik:
+    image: traefik:v2.11
+    command: --providers.docker --api.insecure=true
+    ports:
+      - '80:80'
+      - '443:443'
+      # - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - 'traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/,test2:$$apr1$$d9hr9HBB$$4HxwgUir3HP4EsggP/QNo0'

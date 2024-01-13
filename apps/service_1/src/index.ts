@@ -1,18 +1,20 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { red } from '@repo/logger';
-import { test } from './test/asd';
+import { logger } from 'hono/logger';
 
-const app = new Hono();
+const api = new Hono();
+api.use('*', logger());
 
-app.get('/', (c) => {
-  return c.text('Hello Hono 1!');
+api.get('/', (c) => {
+  return c.text('Hello Hono 1 mivaaasdasdasdd!');
 });
-
-test();
 
 const port = 3000;
 red(`Server is running on port ${port}`);
+
+const app = new Hono();
+app.route(process.env.PATH_PREFIX!, api);
 
 serve({
   fetch: app.fetch,
