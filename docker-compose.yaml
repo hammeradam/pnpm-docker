@@ -6,33 +6,37 @@ services:
       context: .
       dockerfile: Dockerfile
       target: service_1
-    # ports:
-    #   - '3000:3000'
     environment:
       - PATH_PREFIX=/api/service_1
     labels:
-      - 'traefik.http.routers.service_1.rule=(Host(`app.localhost`) && PathPrefix(`/api/service_1`))'
-    # depends_on:
-    #   - traefik
+      - 'traefik.http.routers.service_1.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
+    depends_on:
+      - traefik
   service_2:
     build:
       context: .
       dockerfile: Dockerfile
       target: service_2
-    # ports:
-    #   - '3001:3001'
     environment:
       - PATH_PREFIX=/api/service_2
     labels:
-      - 'traefik.http.routers.service_2.rule=(Host(`app.localhost`) && PathPrefix(`/api/service_2`))'
-    # depends_on:
-    #   - traefik
-  # traefik:
-  #   image: traefik:v2.11
-  #   command: --providers.docker --api.insecure=true
-  #   ports:
-  #     - '1234:80'
-  #     # - '443:443'
-  #     # - '8080:8080'
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
+      - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
+    depends_on:
+      - traefik
+  traefik:
+    image: traefik:v2.11
+    command: --providers.docker --api.insecure=true
+    ports:
+      - '80:80'
+      # - '443:443'
+      # - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.enable=true
+      - 'traefik.http.routers.asd-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+      - traefik.http.routers.asd-http.entryPoints=http
+      - traefik.http.routers.asd-http.middlewares=gzip
+      - coolify.managed=true
+      - coolify.applicationId=3
+      - coolify.type=application
