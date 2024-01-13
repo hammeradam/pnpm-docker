@@ -31,7 +31,7 @@ services:
     image: traefik:v2.11
     command: --providers.docker --api.insecure=true
     ports:
-      - '80:80'
+      - '1234:80'
       # - '443:443'
       # - '8080:8080'
     volumes:
