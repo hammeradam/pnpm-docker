@@ -12,8 +12,8 @@ services:
       - PATH_PREFIX=/api/service_1
     labels:
       - 'traefik.http.routers.service_1.rule=(Host(`app.localhost`) && PathPrefix(`/api/service_1`))'
-    depends_on:
-      - traefik
+    # depends_on:
+    #   - traefik
   service_2:
     build:
       context: .
@@ -25,8 +25,8 @@ services:
       - PATH_PREFIX=/api/service_2
     labels:
       - 'traefik.http.routers.service_2.rule=(Host(`app.localhost`) && PathPrefix(`/api/service_2`))'
-    depends_on:
-      - traefik
+    # depends_on:
+    #   - traefik
   # traefik:
   #   image: traefik:v2.11
   #   command: --providers.docker --api.insecure=true
