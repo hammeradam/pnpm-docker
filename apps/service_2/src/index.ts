@@ -10,7 +10,7 @@ api.get('/', (c) => {
   return c.text('Hello Hono 1 mivaaasdasdasdd!');
 });
 
-const port = 3000;
+const port = 3001;
 red(`Server is running on port ${port}`);
 
 const app = new Hono();

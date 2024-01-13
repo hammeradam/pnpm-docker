@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: service_1
-    ports:
-      - '3000:3000'
+    # ports:
+    #   - '3000:3000'
     environment:
       - PATH_PREFIX=/api/service_1
     labels:
@@ -19,8 +19,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: service_2
-    ports:
-      - '3001:3001'
+    # ports:
+    #   - '3001:3001'
     environment:
       - PATH_PREFIX=/api/service_2
     labels:
@@ -31,10 +31,8 @@ services:
     image: traefik:v2.11
     command: --providers.docker --api.insecure=true
     ports:
-      - '3000:80'
+      - '80:80'
       # - '443:443'
       # - '8080:8080'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - 'traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/,test2:$$apr1$$d9hr9HBB$$4HxwgUir3HP4EsggP/QNo0'
