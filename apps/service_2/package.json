@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.3.5",
+    "@repo/env": "workspace:^",
     "@repo/logger": "workspace:*",
     "hono": "^3.12.3",
-    "tsx": "^3.14.0"
+    "tsx": "^3.14.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

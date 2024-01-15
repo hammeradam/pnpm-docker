@@ -20,5 +20,8 @@
     /* If you want to use JSX: */
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

@@ -15,13 +15,13 @@ RUN pnpm deploy --filter=web       --prod /prod/web
 FROM base AS service_1
 COPY --from=build /prod/service_1 /prod/service_1
 WORKDIR /prod/service_1
-EXPOSE 3000
+EXPOSE 3001
 CMD [ "pnpm", "start" ]
 
 FROM base AS service_2
 COPY --from=build /prod/service_2 /prod/service_2
 WORKDIR /prod/service_2
-EXPOSE 3001
+EXPOSE 3002
 CMD [ "pnpm", "start" ]
 
 FROM nginx:stable-alpine as web

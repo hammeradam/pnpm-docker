@@ -8,6 +8,7 @@ services:
       target: service_1
     environment:
       - PATH_PREFIX=/api/service_1
+      - PORT=3001
     labels:
       - traefik.enable=true
       - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
@@ -24,6 +25,7 @@ services:
       target: service_2
     environment:
       - PATH_PREFIX=/api/service_2
+      - PORT=3002
     labels:
       - traefik.enable=true
       - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
