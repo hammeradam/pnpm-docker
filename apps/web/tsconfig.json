@@ -1,4 +1,5 @@
 {
-  "extends": "@repo/ts-config/vite.json",
-  "references": [{ "path": "@repo/ts-config/vite.node.json" }]
+    "extends": "@repo/ts-config/vite.json",
+    "include": ["src"],
+    "references": [{ "path": "./tsconfig.node.json" }]
 }

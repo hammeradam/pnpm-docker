@@ -1,8 +1,8 @@
 {
-  "extends": "@repo/ts-config/base.json",
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
+    "extends": "@repo/ts-config/base.json",
+    "compilerOptions": {
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     }
-  }
 }

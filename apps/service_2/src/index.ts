@@ -8,11 +8,11 @@ const api = new Hono();
 api.use('*', logger());
 
 api.get('/', (c) => {
-  return c.text('Hello Hono 2 mivaaasdasdasdd!');
+    return c.text('Hello Hono 2 mivaaasdasdasdd!');
 });
 
 api.get('/test', (c) => {
-  return c.text('Hello Hono 2 test!');
+    return c.text('Hello Hono 2 test!');
 });
 
 const port = env.PORT;
@@ -22,6 +22,6 @@ const app = new Hono();
 app.route(env.PATH_PREFIX, api);
 
 serve({
-  fetch: app.fetch,
-  port,
+    fetch: app.fetch,
+    port,
 });

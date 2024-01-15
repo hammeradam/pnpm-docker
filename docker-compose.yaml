@@ -1,50 +1,50 @@
 version: '3'
 
 services:
-  service_1:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: service_1
-    environment:
-      - PATH_PREFIX=/api/service_1
-      - PORT=3001
-    labels:
-      - traefik.enable=true
-      - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
-      - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
-      - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
-      - coolify.managed=true
-      - 'coolify.applicationId=${APPLICATION_ID}'
-      - coolify.type=application
+    service_1:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: service_1
+        environment:
+            - PATH_PREFIX=/api/service_1
+            - PORT=3001
+        labels:
+            - traefik.enable=true
+            - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
+            - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
+            - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
+            - coolify.managed=true
+            - 'coolify.applicationId=${APPLICATION_ID}'
+            - coolify.type=application
 
-  service_2:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: service_2
-    environment:
-      - PATH_PREFIX=/api/service_2
-      - PORT=3002
-    labels:
-      - traefik.enable=true
-      - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
-      - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
-      - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
-      - coolify.managed=true
-      - 'coolify.applicationId=${APPLICATION_ID}'
-      - coolify.type=application
+    service_2:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: service_2
+        environment:
+            - PATH_PREFIX=/api/service_2
+            - PORT=3002
+        labels:
+            - traefik.enable=true
+            - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
+            - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
+            - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
+            - coolify.managed=true
+            - 'coolify.applicationId=${APPLICATION_ID}'
+            - coolify.type=application
 
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: web
-    labels:
-      - traefik.enable=true
-      - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-      - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
-      - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
-      - coolify.managed=true
-      - 'coolify.applicationId=${APPLICATION_ID}'
-      - coolify.type=application
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: web
+        labels:
+            - traefik.enable=true
+            - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+            - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
+            - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
+            - coolify.managed=true
+            - 'coolify.applicationId=${APPLICATION_ID}'
+            - coolify.type=application

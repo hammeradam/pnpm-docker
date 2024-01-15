@@ -1,16 +1,16 @@
 {
-  "name": "@repo/logger",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@repo/ts-config": "workspace:^",
-    "chalk": "^5.3.0"
-  }
+    "name": "@repo/logger",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@repo/ts-config": "workspace:^",
+        "chalk": "^5.3.0"
+    }
 }
