@@ -10,7 +10,7 @@ services:
       - PATH_PREFIX=/api/service_1
     labels:
       - traefik.enable=true
-      - 'traefik.http.routers.zoc0g0g-0-http.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
+      - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
       - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
       - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
@@ -26,7 +26,7 @@ services:
       - PATH_PREFIX=/api/service_2
     labels:
       - traefik.enable=true
-      - 'traefik.http.routers.zoc0g0g-0-http.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
+      - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
       - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
       - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
@@ -40,27 +40,9 @@ services:
       target: web
     labels:
       - traefik.enable=true
-      - 'traefik.http.routers.zoc0g0g-0-http.rule=(Host(`${HOST}`) && PathPrefix(`/`))'
+      - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
       - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
       - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
       - coolify.applicationId=${APPLICATION_ID}
       - coolify.type=application
-
-  # traefik:
-  #   image: traefik:v2.11
-  #   command: --providers.docker --api.insecure=true
-  #   ports:
-  #     - '80:80'
-  #   # - '443:443'
-  #   # - '8080:8080'
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   labels:
-  #     - traefik.enable=true
-  # - 'traefik.http.routers.test-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-  # - traefik.http.routers.test-http.entryPoints=http
-  # - traefik.http.routers.test-http.middlewares=gzip
-  # - coolify.managed=true
-  # - coolify.applicationId=${APPLICATION_ID}
-  # - coolify.type=application
