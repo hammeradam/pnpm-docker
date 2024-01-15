@@ -8,10 +8,17 @@ services:
       target: service_1
     environment:
       - PATH_PREFIX=/api/service_1
+    depends_on:
+      - traefik
     labels:
+      - traefik.enable=true
       - 'traefik.http.routers.service_1.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
-    # depends_on:
-    #   - traefik
+      - traefik.http.routers.test-http.entryPoints=http
+      - traefik.http.routers.test-http.middlewares=gzip
+      - coolify.managed=true
+      - coolify.applicationId=4
+      - coolify.type=application
+
   service_2:
     build:
       context: .
@@ -19,10 +26,33 @@ services:
       target: service_2
     environment:
       - PATH_PREFIX=/api/service_2
+    depends_on:
+      - traefik
     labels:
+      - traefik.enable=true
       - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
-    # depends_on:
-    #   - traefik
+      - traefik.http.routers.test-http.entryPoints=http
+      - traefik.http.routers.test-http.middlewares=gzip
+      - coolify.managed=true
+      - coolify.applicationId=4
+      - coolify.type=application
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
+    depends_on:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/`))'
+      - traefik.http.routers.test-http.entryPoints=http
+      - traefik.http.routers.test-http.middlewares=gzip
+      - coolify.managed=true
+      - coolify.applicationId=4
+      - coolify.type=application
+
   # traefik:
   #   image: traefik:v2.11
   #   command: --providers.docker --api.insecure=true
@@ -34,9 +64,9 @@ services:
   #     - /var/run/docker.sock:/var/run/docker.sock
   #   labels:
   #     - traefik.enable=true
-  # - 'traefik.http.routers.asd-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-  # - traefik.http.routers.asd-http.entryPoints=http
-  # - traefik.http.routers.asd-http.middlewares=gzip
+  # - 'traefik.http.routers.test-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+  # - traefik.http.routers.test-http.entryPoints=http
+  # - traefik.http.routers.test-http.middlewares=gzip
   # - coolify.managed=true
-  # - coolify.applicationId=3
+  # - coolify.applicationId=4
   # - coolify.type=application

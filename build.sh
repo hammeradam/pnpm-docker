@@ -1,0 +1,1 @@
+HOST=app.localhost docker compose -f docker-compose.local.yaml up --force-recreate

@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  service_1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: service_1
+    environment:
+      - PATH_PREFIX=/api/service_1
+    labels:
+      - 'traefik.http.routers.service_1.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
+    depends_on:
+      - traefik
+
+  service_2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: service_2
+    environment:
+      - PATH_PREFIX=/api/service_2
+    labels:
+      - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
+    depends_on:
+      - traefik
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
+    labels:
+      - 'traefik.http.routers.web.rule=(Host(`${HOST}`) && PathPrefix(`/`))'
+    depends_on:
+      - traefik
+
+  traefik:
+    image: traefik:v2.11
+    command: --providers.docker --api.insecure=true
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
