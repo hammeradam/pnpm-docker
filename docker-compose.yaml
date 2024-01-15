@@ -46,5 +46,3 @@ services:
       - coolify.managed=true
       - 'coolify.applicationId=${APPLICATION_ID}'
       - coolify.type=application
-      - traefik.http.middlewares.custom-auth.basicauth.users=test:$$2y$$12$$ci.4U63YX83CwkyUrjqxAucnmi2xXOIlEF6T/KdP9824f1Rf1iyNG
-      - traefik.http.routers.q04o0gk-0-http.middlewares=custom-auth
