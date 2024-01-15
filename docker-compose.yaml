@@ -23,20 +23,20 @@ services:
       - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
     depends_on:
       - traefik
-  traefik:
-    image: traefik:v2.11
-    command: --providers.docker --api.insecure=true
-    ports:
-      - '80:80'
-    # - '443:443'
-    # - '8080:8080'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - traefik.enable=true
-      - 'traefik.http.routers.asd-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-      # - traefik.http.routers.asd-http.entryPoints=http
-      # - traefik.http.routers.asd-http.middlewares=gzip
-      # - coolify.managed=true
-      # - coolify.applicationId=3
-      # - coolify.type=application
+  # traefik:
+  #   image: traefik:v2.11
+  #   command: --providers.docker --api.insecure=true
+  #   ports:
+  #     - '80:80'
+  #   # - '443:443'
+  #   # - '8080:8080'
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   labels:
+  #     - traefik.enable=true
+  # - 'traefik.http.routers.asd-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+  # - traefik.http.routers.asd-http.entryPoints=http
+  # - traefik.http.routers.asd-http.middlewares=gzip
+  # - coolify.managed=true
+  # - coolify.applicationId=3
+  # - coolify.type=application
