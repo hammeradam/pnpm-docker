@@ -8,8 +8,6 @@ services:
       target: service_1
     environment:
       - PATH_PREFIX=/api/service_1
-    depends_on:
-      - traefik
     labels:
       - traefik.enable=true
       - 'traefik.http.routers.service_1.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
@@ -26,8 +24,6 @@ services:
       target: service_2
     environment:
       - PATH_PREFIX=/api/service_2
-    depends_on:
-      - traefik
     labels:
       - traefik.enable=true
       - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
@@ -42,8 +38,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: web
-    depends_on:
-      - traefik
     labels:
       - traefik.enable=true
       - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/`))'
