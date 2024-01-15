@@ -17,6 +17,7 @@
     "@repo/base_service": "workspace:*",
     "@repo/env": "workspace:^",
     "@repo/logger": "workspace:*",
+    "@repo/ts-config": "workspace:^",
     "dotenv": "^16.3.1",
     "hono": "^3.12.3",
     "tsx": "^3.14.0",

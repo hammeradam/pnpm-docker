@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "@hono/node-server": "^1.3.5",
+    "@repo/ts-config": "workspace:^",
     "dotenv": "^16.3.1",
     "hono": "^3.12.3"
   },

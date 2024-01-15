@@ -2,7 +2,7 @@ import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { red } from '@repo/logger';
 import { logger } from 'hono/logger';
-import { env } from './env';
+import { env } from '@/env';
 
 const api = new Hono();
 api.use('*', logger());
