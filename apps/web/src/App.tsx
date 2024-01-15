@@ -7,7 +7,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    fetch('/api/service_1').then(console.log);
+    fetch('/api/service_1/test').then(console.log);
     fetch('/api/service_2').then(console.log);
   });
 

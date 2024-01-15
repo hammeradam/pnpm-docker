@@ -10,6 +10,10 @@ api.get('/', (c) => {
   return c.text('Hello Hono 1 mivaaasdasdasdd!');
 });
 
+api.get('/test', (c) => {
+  return c.text('Hello Hono 1 test!');
+});
+
 const port = 3000;
 red(`Server is running on port ${port}`);
 

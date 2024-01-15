@@ -14,7 +14,7 @@ services:
       - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
       - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
-      - coolify.applicationId=${APPLICATION_ID}
+      - 'coolify.applicationId=${APPLICATION_ID}'
       - coolify.type=application
 
   service_2:
@@ -30,7 +30,7 @@ services:
       - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
       - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
-      - coolify.applicationId=${APPLICATION_ID}
+      - 'coolify.applicationId=${APPLICATION_ID}'
       - coolify.type=application
 
   web:
@@ -44,5 +44,5 @@ services:
       - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
       - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
-      - coolify.applicationId=${APPLICATION_ID}
+      - 'coolify.applicationId=${APPLICATION_ID}'
       - coolify.type=application

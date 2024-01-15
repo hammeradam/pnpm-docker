@@ -7,7 +7,11 @@ const api = new Hono();
 api.use('*', logger());
 
 api.get('/', (c) => {
-  return c.text('Hello Hono 1 mivaaasdasdasdd!');
+  return c.text('Hello Hono 2 mivaaasdasdasdd!');
+});
+
+api.get('/test', (c) => {
+  return c.text('Hello Hono 2 test!');
 });
 
 const port = 3001;
