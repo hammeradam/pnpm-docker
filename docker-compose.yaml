@@ -10,9 +10,9 @@ services:
       - PATH_PREFIX=/api/service_1
     labels:
       - traefik.enable=true
-      - 'traefik.http.routers.service_1.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
-      - traefik.http.routers.test-http.entryPoints=http
-      - traefik.http.routers.test-http.middlewares=gzip
+      - 'traefik.http.routers.zoc0g0g-0-http.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_1`))'
+      - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
+      - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
       - coolify.applicationId=4
       - coolify.type=application
@@ -26,9 +26,9 @@ services:
       - PATH_PREFIX=/api/service_2
     labels:
       - traefik.enable=true
-      - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
-      - traefik.http.routers.test-http.entryPoints=http
-      - traefik.http.routers.test-http.middlewares=gzip
+      - 'traefik.http.routers.zoc0g0g-0-http.rule=(Host(`${HOST}`) && PathPrefix(`/api/service_2`))'
+      - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
+      - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
       - coolify.applicationId=4
       - coolify.type=application
@@ -40,9 +40,9 @@ services:
       target: web
     labels:
       - traefik.enable=true
-      - 'traefik.http.routers.service_2.rule=(Host(`${HOST}`) && PathPrefix(`/`))'
-      - traefik.http.routers.test-http.entryPoints=http
-      - traefik.http.routers.test-http.middlewares=gzip
+      - 'traefik.http.routers.zoc0g0g-0-http.rule=(Host(`${HOST}`) && PathPrefix(`/`))'
+      - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
+      - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
       - coolify.managed=true
       - coolify.applicationId=4
       - coolify.type=application
