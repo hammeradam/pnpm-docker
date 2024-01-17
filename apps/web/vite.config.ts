@@ -9,11 +9,11 @@ export default ({ mode }) => {
 
         server: {
             proxy: {
-                [process.env.SERVICE_1_PATH_PREFIX]: {
+                [process.env.SERVICE_1_PATH_PREFIX!]: {
                     target: process.env.SERVICE_1_TARGET,
                     changeOrigin: true,
                 },
-                [process.env.SERVICE_2_PATH_PREFIX]: {
+                [process.env.SERVICE_2_PATH_PREFIX!]: {
                     target: process.env.SERVICE_2_TARGET,
                     changeOrigin: true,
                 },

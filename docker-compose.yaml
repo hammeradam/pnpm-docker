@@ -14,9 +14,17 @@ services:
             - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
             - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
             - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
-            - coolify.managed=true
             - 'coolify.applicationId=${APPLICATION_ID}'
             - coolify.type=application
+            - coolify.managed=true
+            - coolify.version=4.0.0-beta.196
+            - coolify.applicationId=7
+            - coolify.name=service_1
+            - coolify.pullRequestId=0
+        networks:
+            coo0ccc: null
+        restart: unless-stopped
+        container_name: service_1
 
     service_2:
         build:
@@ -31,9 +39,17 @@ services:
             - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
             - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
             - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
-            - coolify.managed=true
             - 'coolify.applicationId=${APPLICATION_ID}'
             - coolify.type=application
+            - coolify.managed=true
+            - coolify.version=4.0.0-beta.196
+            - coolify.applicationId=7
+            - coolify.name=service_2
+            - coolify.pullRequestId=0
+        networks:
+            coo0ccc: null
+        restart: unless-stopped
+        container_name: service_2
 
     web:
         build:
@@ -45,6 +61,14 @@ services:
             - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
             - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
             - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
-            - coolify.managed=true
             - 'coolify.applicationId=${APPLICATION_ID}'
             - coolify.type=application
+            - coolify.managed=true
+            - coolify.version=4.0.0-beta.196
+            - coolify.applicationId=7
+            - coolify.name=web
+            - coolify.pullRequestId=0
+        networks:
+            coo0ccc: null
+        restart: unless-stopped
+        container_name: web
