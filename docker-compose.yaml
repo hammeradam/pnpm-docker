@@ -15,8 +15,12 @@ services:
             - traefik.http.routers.http-service_1.entryPoints=http
             - traefik.http.routers.http-service_1.middlewares=gzip
 
+            - traefik.http.middlewares.gzip.compress=true
+            # - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=test.com/asd
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+
             - traefik.http.routers.https-service_1.entryPoints=https
-            - 'traefik.http.routers.https-service_1.middlewares=https-service_1-stripprefix,gzip'
+            - 'traefik.http.routers.https-service_1.middlewares=gzip'
             - 'traefik.http.routers.https-service_1.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
             - traefik.http.routers.https-service_1.tls.certresolver=letsencrypt
             - traefik.http.routers.https-service_1.tls=true
@@ -46,8 +50,12 @@ services:
             - traefik.http.routers.http-service_2.entryPoints=http
             - traefik.http.routers.http-service_2.middlewares=gzip
 
+            - traefik.http.middlewares.gzip.compress=true
+            # - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=test.com/asd
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+
             - traefik.http.routers.https-service_2.entryPoints=https
-            - 'traefik.http.routers.https-service_2.middlewares=https-service_2-stripprefix,gzip'
+            - 'traefik.http.routers.https-service_2.middlewares=gzip'
             - 'traefik.http.routers.https-service_2.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
             - traefik.http.routers.https-service_2.tls.certresolver=letsencrypt
             - traefik.http.routers.https-service_2.tls=true
@@ -74,8 +82,12 @@ services:
             - traefik.http.routers.http-web.entryPoints=http
             - traefik.http.routers.http-web.middlewares=gzip
 
+            - traefik.http.middlewares.gzip.compress=true
+            # - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=test.com/asd
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+
             - traefik.http.routers.https-web.entryPoints=https
-            - 'traefik.http.routers.https-web.middlewares=https-web-stripprefix,gzip'
+            - 'traefik.http.routers.https-web.middlewares=gzip'
             - 'traefik.http.routers.https-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
             - traefik.http.routers.https-web.tls.certresolver=letsencrypt
             - traefik.http.routers.https-web.tls=true
