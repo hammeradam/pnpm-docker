@@ -18,7 +18,6 @@ services:
             - coolify.type=application
             - coolify.managed=true
             - coolify.version=4.0.0-beta.196
-            - coolify.applicationId=7
             - coolify.name=service_1
             - coolify.pullRequestId=0
         networks:
@@ -43,7 +42,6 @@ services:
             - coolify.type=application
             - coolify.managed=true
             - coolify.version=4.0.0-beta.196
-            - coolify.applicationId=7
             - coolify.name=service_2
             - coolify.pullRequestId=0
         networks:
@@ -65,7 +63,6 @@ services:
             - coolify.type=application
             - coolify.managed=true
             - coolify.version=4.0.0-beta.196
-            - coolify.applicationId=7
             - coolify.name=web
             - coolify.pullRequestId=0
         networks:
