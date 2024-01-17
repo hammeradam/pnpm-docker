@@ -20,8 +20,8 @@ services:
             - coolify.version=4.0.0-beta.196
             - coolify.name=service_1
             - coolify.pullRequestId=0
-        # networks:
-        #     coo0ccc: null
+        networks:
+            coo0ccc: null
         restart: unless-stopped
         container_name: service_1
 
@@ -44,8 +44,8 @@ services:
             - coolify.version=4.0.0-beta.196
             - coolify.name=service_2
             - coolify.pullRequestId=0
-        # networks:
-        #     coo0ccc: null
+        networks:
+            coo0ccc: null
         restart: unless-stopped
         container_name: service_2
 
@@ -65,7 +65,11 @@ services:
             - coolify.version=4.0.0-beta.196
             - coolify.name=web
             - coolify.pullRequestId=0
-        # networks:
-        #     coo0ccc: null
+        networks:
+            coo0ccc: null
         restart: unless-stopped
         container_name: web
+networks:
+    coo0ccc:
+        name: coo0ccc
+        external: true
