@@ -26,7 +26,7 @@ services:
             - coolify.name=service_1
             - coolify.pullRequestId=0
         networks:
-            app-network: null
+            coo0ccc: null
         restart: unless-stopped
         container_name: service_1
 
@@ -50,7 +50,7 @@ services:
             - traefik.http.routers.https-service_2.tls=true
             - 'coolify.applicationId=${APPLICATION_ID}'
         networks:
-            app-network: null
+            coo0ccc: null
         restart: unless-stopped
         container_name: service_2
 
@@ -71,12 +71,12 @@ services:
             - traefik.http.routers.https-web.tls=true
             - 'coolify.applicationId=${APPLICATION_ID}'
         networks:
-            app-network: null
+            coo0ccc: null
         restart: unless-stopped
         container_name: web
 
 volumes: {}
 networks:
-    app-network:
-        name: app-network
+    coo0ccc:
+        name: coo0ccc
         external: true
