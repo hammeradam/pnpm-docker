@@ -11,9 +11,9 @@ services:
             - PORT=3001
         labels:
             - traefik.enable=true
-            - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
-            - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
-            - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
+            - 'traefik.http.routers.service_1.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
+            - traefik.http.routers.service_1.entryPoints=http
+            - traefik.http.routers.service_1.middlewares=gzip
             - 'coolify.applicationId=${APPLICATION_ID}'
             - coolify.type=application
             - coolify.managed=true
@@ -35,9 +35,9 @@ services:
             - PORT=3002
         labels:
             - traefik.enable=true
-            - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
-            - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
-            - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
+            - 'traefik.http.routers.service_2.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
+            - traefik.http.routers.service_2.entryPoints=http
+            - traefik.http.routers.service_2.middlewares=gzip
             - 'coolify.applicationId=${APPLICATION_ID}'
             - coolify.type=application
             - coolify.managed=true
@@ -56,9 +56,9 @@ services:
             target: web
         labels:
             - traefik.enable=true
-            - 'traefik.http.routers.zoc0g0g-0-http.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-            - traefik.http.routers.zoc0g0g-0-http.entryPoints=http
-            - traefik.http.routers.zoc0g0g-0-http.middlewares=gzip
+            - 'traefik.http.routers.web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+            - traefik.http.routers.web.entryPoints=http
+            - traefik.http.routers.web.middlewares=gzip
             - 'coolify.applicationId=${APPLICATION_ID}'
             - coolify.type=application
             - coolify.managed=true
@@ -69,6 +69,8 @@ services:
             coo0ccc: null
         restart: unless-stopped
         container_name: web
+
+volumes: {}
 networks:
     coo0ccc:
         name: coo0ccc
