@@ -12,10 +12,20 @@ export default ({ mode }) => {
                 [process.env.SERVICE_1_PATH_PREFIX!]: {
                     target: process.env.SERVICE_1_TARGET,
                     changeOrigin: true,
+                    rewrite: (path) =>
+                        path.replace(
+                            new RegExp(`^${process.env.SERVICE_1_PATH_PREFIX}`),
+                            '',
+                        ),
                 },
                 [process.env.SERVICE_2_PATH_PREFIX!]: {
                     target: process.env.SERVICE_2_TARGET,
                     changeOrigin: true,
+                    rewrite: (path) =>
+                        path.replace(
+                            new RegExp(`^${process.env.SERVICE_2_PATH_PREFIX}`),
+                            '',
+                        ),
                 },
             },
         },

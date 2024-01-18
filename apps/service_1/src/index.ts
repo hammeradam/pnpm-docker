@@ -4,22 +4,19 @@ import { red } from '@repo/logger';
 import { logger } from 'hono/logger';
 import { env } from '@/env';
 
-const api = new Hono();
-api.use('*', logger());
+const app = new Hono();
+app.use('*', logger());
 
-api.get('/', (c) => {
+app.get('/', (c) => {
     return c.text('Hello Hono 1 mivaaasdasdasdd!');
 });
 
-api.get('/test', (c) => {
+app.get('/test', (c) => {
     return c.text('Hello Hono 1 test!');
 });
 
 const port = env.PORT;
 red(`Server is running on port ${port}`);
-
-const app = new Hono();
-app.route(env.PATH_PREFIX, api);
 
 serve({
     fetch: app.fetch,

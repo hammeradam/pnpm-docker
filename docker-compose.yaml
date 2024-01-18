@@ -7,20 +7,21 @@ services:
             dockerfile: Dockerfile
             target: service_1
         environment:
-            - PATH_PREFIX=/api/service_1
             - PORT=3001
         labels:
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+
             - traefik.enable=true
             - 'traefik.http.routers.http-service_1.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
             - traefik.http.routers.http-service_1.entryPoints=http
-            - traefik.http.routers.http-service_1.middlewares=gzip
+            - traefik.http.routers.http-service_1.middlewares=redirect-to-https,gzip
 
             - traefik.http.middlewares.gzip.compress=true
-            # - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=test.com/asd
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=/api/service_1
 
             - traefik.http.routers.https-service_1.entryPoints=https
-            - 'traefik.http.routers.https-service_1.middlewares=gzip'
+            - 'traefik.http.routers.https-service_1.middlewares=http-service_1-stripprefix,gzip'
             - 'traefik.http.routers.https-service_1.rule=Host(`${HOST}`) && PathPrefix(`/api/service_1`)'
             - traefik.http.routers.https-service_1.tls.certresolver=letsencrypt
             - traefik.http.routers.https-service_1.tls=true
@@ -42,20 +43,21 @@ services:
             dockerfile: Dockerfile
             target: service_2
         environment:
-            - PATH_PREFIX=/api/service_2
             - PORT=3002
         labels:
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+
             - traefik.enable=true
             - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
             - traefik.http.routers.http-service_2.entryPoints=http
-            - traefik.http.routers.http-service_2.middlewares=gzip
+            - traefik.http.routers.http-service_2.middlewares=redirect-to-https,gzip
 
             - traefik.http.middlewares.gzip.compress=true
-            # - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=test.com/asd
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.middlewares.http-service_2-stripprefix.stripprefix.prefixes=/api/service_2
 
             - traefik.http.routers.https-service_2.entryPoints=https
-            - 'traefik.http.routers.https-service_2.middlewares=gzip'
+            - 'traefik.http.routers.https-service_2.middlewares=http-service_2-stripprefix,gzip'
             - 'traefik.http.routers.https-service_2.rule=Host(`${HOST}`) && PathPrefix(`/api/service_2`)'
             - traefik.http.routers.https-service_2.tls.certresolver=letsencrypt
             - traefik.http.routers.https-service_2.tls=true
@@ -77,14 +79,15 @@ services:
             dockerfile: Dockerfile
             target: web
         labels:
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+
             - traefik.enable=true
             - 'traefik.http.routers.http-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
             - traefik.http.routers.http-web.entryPoints=http
-            - traefik.http.routers.http-web.middlewares=gzip
+            - traefik.http.routers.http-web.middlewares=redirect-to-https,gzip
 
             - traefik.http.middlewares.gzip.compress=true
-            # - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=test.com/asd
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
 
             - traefik.http.routers.https-web.entryPoints=https
             - 'traefik.http.routers.https-web.middlewares=gzip'
