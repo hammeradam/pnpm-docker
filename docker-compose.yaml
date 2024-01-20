@@ -73,7 +73,7 @@ services:
             dockerfile: Dockerfile
             target: web
         labels:
-            # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
             # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
             - traefik.enable=true
