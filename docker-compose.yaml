@@ -9,8 +9,8 @@ services:
         environment:
             - PORT=3001
         labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+            # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
             - traefik.enable=true
             - 'traefik.http.routers.http-service_1.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_1_ROUTE_PREFIX}`)'
@@ -41,8 +41,8 @@ services:
         environment:
             - PORT=3002
         labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+            # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
             - traefik.enable=true
             - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
@@ -71,12 +71,12 @@ services:
             dockerfile: Dockerfile
             target: web
         labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+            # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
             - traefik.enable=true
             - traefik.http.routers.http-web.entryPoints=http
-            - 'traefik.http.routers.http-web.middlewares=redirect-to-https,gzip'
+            - 'traefik.http.routers.http-web.middlewares=gzip'
             - 'traefik.http.routers.http-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
 
             - traefik.http.middlewares.gzip.compress=true
