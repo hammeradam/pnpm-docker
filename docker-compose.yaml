@@ -20,7 +20,7 @@ services:
             - traefik.http.middlewares.gzip.compress=true
             - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=/api/service_1
 
-            - traefik.http.routers.https-service_1.entryPoints=https
+            # - traefik.http.routers.https-service_1.entryPoints=https
             - 'traefik.http.routers.https-service_1.middlewares=http-service_1-stripprefix,gzip'
             - 'traefik.http.routers.https-service_1.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_1_ROUTE_PREFIX}`)'
             - traefik.http.routers.https-service_1.tls.certresolver=letsencrypt
@@ -56,7 +56,7 @@ services:
             - traefik.http.middlewares.gzip.compress=true
             - traefik.http.middlewares.http-service_2-stripprefix.stripprefix.prefixes=/api/service_2
 
-            - traefik.http.routers.https-service_2.entryPoints=https
+            # - traefik.http.routers.https-service_2.entryPoints=https
             - 'traefik.http.routers.https-service_2.middlewares=http-service_2-stripprefix,gzip'
             - 'traefik.http.routers.https-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
             - traefik.http.routers.https-service_2.tls.certresolver=letsencrypt
@@ -89,7 +89,7 @@ services:
 
             - traefik.http.middlewares.gzip.compress=true
 
-            - traefik.http.routers.https-web.entryPoints=https
+            # - traefik.http.routers.https-web.entryPoints=https
             - 'traefik.http.routers.https-web.middlewares=gzip'
             - 'traefik.http.routers.https-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
             - traefik.http.routers.https-web.tls.certresolver=letsencrypt
