@@ -13,8 +13,9 @@ services:
             # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
             - traefik.enable=true
-            - 'traefik.http.routers.http-service_1.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_1_ROUTE_PREFIX}`)'
             - 'traefik.http.routers.http-service_1.entryPoints=http'
+            - 'traefik.http.routers.http-service_1.middlewares=gzip'
+            - 'traefik.http.routers.http-service_1.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_1_ROUTE_PREFIX}`)'
 
             - traefik.http.middlewares.gzip.compress=true
             - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=${SERVICE_1_ROUTE_PREFIX}
@@ -45,8 +46,9 @@ services:
             # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
             - traefik.enable=true
-            - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
             - 'traefik.http.routers.http-service_2.entryPoints=http'
+            - 'traefik.http.routers.http-service_2.middlewares=gzip'
+            - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
 
             - traefik.http.middlewares.gzip.compress=true
             - traefik.http.middlewares.http-service_2-stripprefix.stripprefix.prefixes=${SERVICE_2_ROUTE_PREFIX}
