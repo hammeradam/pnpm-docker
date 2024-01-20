@@ -34,68 +34,68 @@ services:
         restart: unless-stopped
         container_name: service_1
 
-    service_2:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: service_2
-        environment:
-            - PORT=3002
-        labels:
-            # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+    # service_2:
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #         target: service_2
+    #     environment:
+    #         - PORT=3002
+    #     labels:
+    #         # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+    #         # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
-            - traefik.enable=true
-            - 'traefik.http.routers.http-service_2.entryPoints=http'
-            - 'traefik.http.routers.http-service_2.middlewares=gzip'
-            - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
+    #         - traefik.enable=true
+    #         - 'traefik.http.routers.http-service_2.entryPoints=http'
+    #         - 'traefik.http.routers.http-service_2.middlewares=gzip'
+    #         - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
 
-            - traefik.http.middlewares.gzip.compress=true
-            - traefik.http.middlewares.http-service_2-stripprefix.stripprefix.prefixes=${SERVICE_2_ROUTE_PREFIX}
+    #         - traefik.http.middlewares.gzip.compress=true
+    #         - traefik.http.middlewares.http-service_2-stripprefix.stripprefix.prefixes=${SERVICE_2_ROUTE_PREFIX}
 
-            - traefik.http.routers.https-service_2.entryPoints=https
-            - 'traefik.http.routers.https-service_2.middlewares=http-service_2-stripprefix,gzip'
-            - 'traefik.http.routers.https-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
-            - traefik.http.routers.https-service_2.tls.certresolver=letsencrypt
-            - traefik.http.routers.https-service_2.tls=true
+    #         - traefik.http.routers.https-service_2.entryPoints=https
+    #         - 'traefik.http.routers.https-service_2.middlewares=http-service_2-stripprefix,gzip'
+    #         - 'traefik.http.routers.https-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
+    #         - traefik.http.routers.https-service_2.tls.certresolver=letsencrypt
+    #         - traefik.http.routers.https-service_2.tls=true
 
-            - 'coolify.applicationId=${APPLICATION_ID}'
-            - coolify.type=application
-            - coolify.managed=true
-        networks:
-            coo0ccc: null
-        restart: unless-stopped
-        container_name: service_2
+    #         - 'coolify.applicationId=${APPLICATION_ID}'
+    #         - coolify.type=application
+    #         - coolify.managed=true
+    #     networks:
+    #         coo0ccc: null
+    #     restart: unless-stopped
+    #     container_name: service_2
 
-    web:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: web
-        labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+    # web:
+    # build:
+    #     context: .
+    #     dockerfile: Dockerfile
+    #     target: web
+    # labels:
+    #     - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+    #     # - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
 
-            - traefik.enable=true
-            - traefik.http.routers.http-web.entryPoints=http
-            - 'traefik.http.routers.http-web.middlewares=gzip'
-            - 'traefik.http.routers.http-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+    #     - traefik.enable=true
+    #     - traefik.http.routers.http-web.entryPoints=http
+    #     - 'traefik.http.routers.http-web.middlewares=gzip'
+    #     - 'traefik.http.routers.http-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
 
-            - traefik.http.middlewares.gzip.compress=true
+    #     - traefik.http.middlewares.gzip.compress=true
 
-            - traefik.http.routers.https-web.entryPoints=https
-            - 'traefik.http.routers.https-web.middlewares=gzip'
-            - 'traefik.http.routers.https-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-            - traefik.http.routers.https-web.tls.certresolver=letsencrypt
-            - traefik.http.routers.https-web.tls=true
+    #     - traefik.http.routers.https-web.entryPoints=https
+    #     - 'traefik.http.routers.https-web.middlewares=gzip'
+    #     - 'traefik.http.routers.https-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
+    #     - traefik.http.routers.https-web.tls.certresolver=letsencrypt
+    #     - traefik.http.routers.https-web.tls=true
 
-            - 'coolify.applicationId=${APPLICATION_ID}'
-            - coolify.type=application
-            - coolify.managed=true
-        networks:
-            coo0ccc: null
-        restart: unless-stopped
-        container_name: web
+    #     - 'coolify.applicationId=${APPLICATION_ID}'
+    #     - coolify.type=application
+    #     - coolify.managed=true
+    # networks:
+    #     coo0ccc: null
+    # restart: unless-stopped
+    # container_name: web
 
 volumes: {}
 networks:
