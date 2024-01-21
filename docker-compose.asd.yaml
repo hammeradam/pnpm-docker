@@ -13,7 +13,8 @@ services:
             - traefik.enable=true
             - traefik.http.middlewares.gzip.compress=true
             - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - 'traefik.http.routers.http-0-z4kwksc.entryPoints=redirect-to-https'
+            - 'traefik.http.routers.http-0-z4kwksc.entryPoints=http'
+            - 'traefik.http.routers.http-0-z4kwksc.middlewares=redirect-to-https'
             - 'traefik.http.routers.http-0-z4kwksc.rule=Host(`asd.ahammer.work`) && PathPrefix(`/`)'
             - traefik.http.routers.http-0-z4kwksc.middlewares=gzip
             - traefik.http.routers.https-0-z4kwksc.entryPoints=https
