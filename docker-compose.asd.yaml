@@ -6,7 +6,7 @@ services:
             dockerfile: Dockerfile
             target: web
         networks:
-            po48wco: null
+            coo0ccc: null
         restart: unless-stopped
         container_name: web-po48wco-205141202003
         labels:
@@ -28,6 +28,6 @@ services:
             - coolify.pullRequestId=0
 volumes: {}
 networks:
-    po48wco:
-        name: po48wco
+    coo0ccc:
+        name: coo0ccc
         external: true
