@@ -1,11 +1,33 @@
 version: '3'
 
 services:
+    traefik:
+        image: traefik:v2.11
+        command:
+            # - '--log.level=DEBUG'
+            - '--providers.docker'
+            - '--api.insecure=true'
+            - '--providers.docker.exposedbydefault=false'
+            - '--entrypoints.http.address=:80'
+            - '--entrypoints.https.address=:443'
+            - '--certificatesresolvers.letsencrypt.acme.tlschallenge=true'
+            # - '--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory'
+            - '--certificatesresolvers.letsencrypt.acme.email=hammeradam894@gmail.com'
+            - '--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json'
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - /etc/traefik:/etc/traefik
+            - /var/run/docker.sock:/var/run/docker.sock
+
     service_1:
         build:
             context: .
             dockerfile: Dockerfile
             target: service_1
+        depends_on:
+            - traefik
         environment:
             - PORT=3001
         labels:
@@ -33,6 +55,8 @@ services:
             context: .
             dockerfile: Dockerfile
             target: service_2
+        depends_on:
+            - traefik
         environment:
             - PORT=3002
         labels:
@@ -60,6 +84,8 @@ services:
             context: .
             dockerfile: Dockerfile
             target: web
+        depends_on:
+            - traefik
         labels:
             - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
             - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
@@ -78,19 +104,5 @@ services:
             - traefik.http.routers.https-web.tls=true
         restart: unless-stopped
         container_name: web
-
-    traefik:
-        image: traefik:v2.11
-        command:
-            - '--providers.docker'
-            - '--api.insecure=true'
-            - '--providers.docker.exposedbydefault=false'
-            - '--entrypoints.http.address=:80'
-            - '--entrypoints.https.address=:443'
-        ports:
-            - '80:80'
-            - '443:443'
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
 
 volumes: {}
