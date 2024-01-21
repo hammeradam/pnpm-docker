@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: web
+        networks:
+            coo0ccc: null
+        restart: unless-stopped
+        container_name: web
+
+volumes: {}
+networks:
+    coo0ccc:
+        name: coo0ccc
+        external: true
