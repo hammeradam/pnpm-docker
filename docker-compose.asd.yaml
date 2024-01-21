@@ -1,5 +1,4 @@
 version: '3'
-
 services:
     web:
         build:
@@ -7,6 +6,28 @@ services:
             dockerfile: Dockerfile
             target: web
         networks:
-            coo0ccc: null
+            po48wco: null
         restart: unless-stopped
-        container_name: web
+        container_name: web-po48wco-205141202003
+        labels:
+            - traefik.enable=true
+            - traefik.http.middlewares.gzip.compress=true
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+            - traefik.http.routers.http-0-log4g4c.entryPoints=http
+            - 'traefik.http.routers.http-0-log4g4c.rule=Host(`asd.ahammer.work`) && PathPrefix(`/`)'
+            - traefik.http.routers.https-0-log4g4c.entryPoints=https
+            - traefik.http.routers.https-0-log4g4c.middlewares=gzip
+            - 'traefik.http.routers.https-0-log4g4c.rule=Host(`asd.ahammer.work`) && PathPrefix(`/`)'
+            - traefik.http.routers.https-0-log4g4c.tls.certresolver=letsencrypt
+            - traefik.http.routers.https-0-log4g4c.tls=true
+            - coolify.managed=true
+            - coolify.version=4.0.0-beta.198
+            - coolify.applicationId=9
+            - coolify.type=application
+            - coolify.name=web-po48wco-205141202003
+            - coolify.pullRequestId=0
+volumes: {}
+networks:
+    po48wco:
+        name: po48wco
+        external: true
