@@ -1,24 +1,22 @@
-import { serve } from '@hono/node-server';
-import { Hono } from 'hono';
-import { red } from '@repo/logger';
-import { logger } from 'hono/logger';
 import { env } from '@/env';
+import { createServer } from '@repo/base_service';
 
-const app = new Hono();
-app.use('*', logger());
+import { moviesApp } from './movies';
+import { newsletterApp } from './newsletter';
+// import { getId } from '@repo/id';
 
-app.get('/', (c) => {
-    return c.text('Hello Hono 1 mivaaasdasdasdd!');
-});
+// console.log(getId(5), getId());
 
-app.get('/test', (c) => {
-    return c.text('Hello Hono 1 test!');
-});
-
-const port = env.PORT;
-red(`Server is running on port ${port}`);
-
-serve({
-    fetch: app.fetch,
-    port,
+createServer({
+    port: env.PORT,
+    routes: [
+        {
+            path: '/movies',
+            handler: moviesApp,
+        },
+        {
+            path: '/newsletter',
+            handler: newsletterApp,
+        },
+    ],
 });

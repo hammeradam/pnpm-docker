@@ -1,24 +1,17 @@
-import { serve } from '@hono/node-server';
-import { Hono } from 'hono';
-import { red } from '@repo/logger';
-import { logger } from 'hono/logger';
+import Redis from '@repo/queue';
 import { env } from '@/env';
 
-const app = new Hono();
-app.use('*', logger());
-
-app.get('/', (c) => {
-    return c.text('Hello Hono 2 mivaaasdasdasdd!');
+const sub = new Redis({
+    host: env.REDIS_HOST,
+    port: env.REDIS_PORT,
 });
 
-app.get('/test', (c) => {
-    return c.text('Hello Hono 2 test!');
-});
+sub.subscribe('movie_created');
 
-const port = env.PORT;
-red(`Server is running on port ${port}`);
-
-serve({
-    fetch: app.fetch,
-    port,
+sub.on('message', (channel, message) => {
+    if (channel === 'movie_created') {
+        console.log(JSON.parse(message));
+    } else {
+        console.log('unknown channel', channel);
+    }
 });
