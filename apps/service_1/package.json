@@ -10,7 +10,7 @@
         "dev": "run-p dev:*",
         "lint": "tsc",
         "build": "node build.mjs",
-        "start": "NODE_ENV=production node dist/index.js"
+        "start": "NODE_ENV=production node --env-file .env dist/index.js"
     },
     "dependencies": {
         "@repo/base_service": "workspace:*",

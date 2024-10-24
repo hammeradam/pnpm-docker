@@ -1,41 +1,20 @@
 {
-    "version": "5",
-    "dialect": "sqlite",
-    "entries": [
-        {
-            "idx": 0,
-            "version": "5",
-            "when": 1708251638785,
-            "tag": "0000_previous_alice",
-            "breakpoints": true
-        },
-        {
-            "idx": 1,
-            "version": "5",
-            "when": 1708293210069,
-            "tag": "0001_careful_misty_knight",
-            "breakpoints": true
-        },
-        {
-            "idx": 3,
-            "version": "5",
-            "when": 1708293503631,
-            "tag": "0003_yummy_payback",
-            "breakpoints": true
-        },
-        {
-            "idx": 4,
-            "version": "5",
-            "when": 1708293848983,
-            "tag": "0004_pink_ben_parker",
-            "breakpoints": true
-        },
-        {
-            "idx": 5,
-            "version": "5",
-            "when": 1708297553450,
-            "tag": "0005_fat_may_parker",
-            "breakpoints": true
-        }
-    ]
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1708967591687,
+      "tag": "0000_bumpy_jack_murdock",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708967687399,
+      "tag": "0001_material_karma",
+      "breakpoints": true
+    }
+  ]
 }

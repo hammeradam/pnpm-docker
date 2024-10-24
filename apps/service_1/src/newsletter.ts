@@ -23,10 +23,10 @@ import { getId } from '../../../packages/id';
 
 // console.log(asd);
 
-const pub = new Redis({
-    host: env.REDIS_HOST,
-    port: env.REDIS_PORT,
-});
+// const pub = new Redis({
+//     host: env.REDIS_HOST,
+//     port: env.REDIS_PORT,
+// });
 
 const subscribtionSchema = createInsertSchema(subscribtionTable);
 
@@ -123,7 +123,36 @@ const verify = createRoute({
 
 export const newsletterApp = new OpenAPIHono()
     .openapi(subscribe, async (c) => {
+        // const asd = await db
+        //     .select()
+        //     .from(newsletterTable)
+        //     .leftJoin(
+        //         subscribtionTable,
+        //         eq(newsletterTable.id, subscribtionTable.newsletterId),
+        //     )
+        //     .groupBy(newsletterTable.id);
+
         const { email } = c.req.valid('json');
+
+        // console.log(
+        //     db.query.newsletterTable
+        //         .findMany({
+        //             with: {
+        //                 subscribers: true,
+        //             },
+        //         })
+        //         .toSQL(),
+        // );
+
+        console.log(
+            db.query.subscribtionTable
+                .findMany({
+                    with: {
+                        newsletter: true,
+                    },
+                })
+                .toSQL(),
+        );
 
         const newsletterId = parseInt(c.req.valid('param').newsletterId);
 
@@ -155,7 +184,7 @@ export const newsletterApp = new OpenAPIHono()
             .from(subscribtionTable)
             .where(eq(subscribtionTable.id, result[0].insertId));
 
-        pub.publish('subscribed', JSON.stringify(ret[0]!));
+        // pub.publish('subscribed', JSON.stringify(ret[0]!));
 
         return c.json(ret[0]!);
     })

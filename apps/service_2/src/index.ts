@@ -12,6 +12,6 @@ sub.on('message', (channel, message) => {
     if (channel === 'movie_created') {
         console.log(JSON.parse(message));
     } else {
-        console.log('unknown channel', channel);
+        console.log('unknown channelsd', channel);
     }
 });

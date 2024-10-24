@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
     mysqlTable,
     text,
@@ -6,16 +6,7 @@ import {
     datetime,
     varchar,
 } from 'drizzle-orm/mysql-core';
-// import { relations } from 'drizzle-orm';
-
-const timestamps = {
-    createdAt: datetime('created_at')
-        .notNull()
-        .default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: datetime('updated_at')
-        .notNull()
-        .default(sql`CURRENT_TIMESTAMP`),
-};
+import { timestamps } from '.';
 
 export const newsletterTable = mysqlTable('newsletters', {
     id: int('id').primaryKey().autoincrement(),
@@ -38,6 +29,6 @@ export const subscribtionTable = mysqlTable('subscriptions', {
     ...timestamps,
 });
 
-// export const usersRelations = relations(newsletterTable, ({ many }) => ({
-//     subscribers: many(subscribtionTable),
-// }));
+export const usersRelations = relations(newsletterTable, ({ many }) => ({
+    subscribers: many(subscribtionTable),
+}));

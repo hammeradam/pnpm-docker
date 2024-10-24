@@ -4,10 +4,10 @@ import { OpenAPIHono, createRoute, z } from '@repo/base_service';
 import Redis from '@repo/queue';
 import { env } from '@/env';
 
-const pub = new Redis({
-    host: env.REDIS_HOST,
-    port: env.REDIS_PORT,
-});
+// const pub = new Redis({
+//     host: env.REDIS_HOST,
+//     port: env.REDIS_PORT,
+// });
 
 const tags = ['movies'];
 
@@ -151,7 +151,7 @@ export const moviesApp = new OpenAPIHono()
             .from(movieModel)
             .where(eq(movieModel.id, result[0].insertId));
 
-        pub.publish('movie_created', JSON.stringify(ret[0]));
+        // pub.publish('movie_created', JSON.stringify(ret[0]));
 
         return c.json(ret[0]!);
     })

@@ -1,5 +1,5 @@
 {
-    "name": "service_2",
+    "name": "product",
     "version": "1.0.0",
     "main": "src/index.ts",
     "type": "module",
@@ -7,20 +7,25 @@
         "dev:tsc": "tsc --watch --preserveWatchOutput",
         "dev:node": "node --env-file .env --watch dist/index.js",
         "dev:esbuild": "node watch.mjs",
-        "dev": "pnpm run \"/dev:/\"",
+        "dev": "run-p dev:*",
         "lint": "tsc",
         "build": "node build.mjs",
         "start": "NODE_ENV=production node dist/index.js"
     },
     "dependencies": {
-        "@repo/env": "workspace:^",
-        "@repo/queue": "workspace:^",
-        "@repo/ts-config": "workspace:^",
-        "zod": "^3.22.4"
+        "@repo/base_service": "workspace:*",
+        "@repo/db": "workspace:*",
+        "@repo/env": "workspace:*",
+        "@repo/id": "workspace:^",
+        "@repo/logger": "workspace:*",
+        "@repo/ts-config": "workspace:*",
+        "@repo/queue": "workspace:*",
+        "dotenv": "^16.4.4"
     },
     "devDependencies": {
         "@types/node": "^20.11.0",
         "esbuild": "^0.19.11",
+        "npm-run-all": "^4.1.5",
         "typescript": "^5.3.3"
     }
 }

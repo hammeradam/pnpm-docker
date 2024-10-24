@@ -1,12 +1,12 @@
 import * as esbuild from 'esbuild';
 
-await esbuild.build({
+let ctx = await esbuild.context({
     entryPoints: ['src/index.ts'],
     bundle: true,
-    sourcemap: true,
     platform: 'node',
-    outdir: 'dist',
-    outExtension: { '.js': '.mjs' },
+    outfile: 'dist/index.js',
     format: 'esm',
     inject: ['cjs-shim.ts'],
 });
+
+await ctx.watch();
