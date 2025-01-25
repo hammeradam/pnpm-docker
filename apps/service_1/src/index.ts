@@ -1,3 +1,4 @@
+console.log('asdassdd');
 import { env } from '@/env';
 import { createServer } from '@repo/base_service';
 

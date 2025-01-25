@@ -1,6 +1,6 @@
 import {
     newsletterTable,
-    subscribtionTable,
+    subscriptionTable,
 } from '@repo/db/models/newsletters';
 import Redis from '@repo/queue';
 import { env } from '@/env';
@@ -12,13 +12,13 @@ import { getId } from '../../../packages/id';
 //     .select({
 //         newsletterName: newsletterTable.name,
 //         subscriber: {
-//             email: subscribtionTable.email,
+//             email: subscriptionTable.email,
 //         },
 //     })
 //     .from(newsletterTable)
 //     .leftJoin(
-//         subscribtionTable,
-//         eq(newsletterTable.id, subscribtionTable.newsletterId),
+//         subscriptionTable,
+//         eq(newsletterTable.id, subscriptionTable.newsletterId),
 //     );
 
 // console.log(asd);
@@ -28,9 +28,9 @@ import { getId } from '../../../packages/id';
 //     port: env.REDIS_PORT,
 // });
 
-const subscribtionSchema = createInsertSchema(subscribtionTable);
+const subscriptionSchema = createInsertSchema(subscriptionTable);
 
-const subscribeSchema = createInsertSchema(subscribtionTable).pick({
+const subscribeSchema = createInsertSchema(subscriptionTable).pick({
     email: true,
 });
 
@@ -63,7 +63,7 @@ const subscribe = createRoute({
         200: {
             content: {
                 'application/json': {
-                    schema: subscribtionSchema.omit({
+                    schema: subscriptionSchema.omit({
                         createdAt: true,
                         updatedAt: true,
                     }),
@@ -127,8 +127,8 @@ export const newsletterApp = new OpenAPIHono()
         //     .select()
         //     .from(newsletterTable)
         //     .leftJoin(
-        //         subscribtionTable,
-        //         eq(newsletterTable.id, subscribtionTable.newsletterId),
+        //         subscriptionTable,
+        //         eq(newsletterTable.id, subscriptionTable.newsletterId),
         //     )
         //     .groupBy(newsletterTable.id);
 
@@ -145,7 +145,7 @@ export const newsletterApp = new OpenAPIHono()
         // );
 
         console.log(
-            db.query.subscribtionTable
+            db.query.subscriptionTable
                 .findMany({
                     with: {
                         newsletter: true,
@@ -173,7 +173,7 @@ export const newsletterApp = new OpenAPIHono()
             );
         }
 
-        const result = await db.insert(subscribtionTable).values({
+        const result = await db.insert(subscriptionTable).values({
             email,
             newsletterId,
             verifyToken: getId(),
@@ -181,8 +181,8 @@ export const newsletterApp = new OpenAPIHono()
 
         const ret = await db
             .select()
-            .from(subscribtionTable)
-            .where(eq(subscribtionTable.id, result[0].insertId));
+            .from(subscriptionTable)
+            .where(eq(subscriptionTable.id, result[0].insertId));
 
         // pub.publish('subscribed', JSON.stringify(ret[0]!));
 
@@ -203,11 +203,11 @@ export const newsletterApp = new OpenAPIHono()
 
         const [subscribtion] = await db
             .select()
-            .from(subscribtionTable)
+            .from(subscriptionTable)
             .where(
                 and(
-                    eq(subscribtionTable.newsletterId, newsletterId),
-                    eq(subscribtionTable.verifyToken, token),
+                    eq(subscriptionTable.newsletterId, newsletterId),
+                    eq(subscriptionTable.verifyToken, token),
                 ),
             )
             .limit(1);
@@ -222,11 +222,11 @@ export const newsletterApp = new OpenAPIHono()
         }
 
         await db
-            .update(subscribtionTable)
+            .update(subscriptionTable)
             .set({
                 verifiedAt: new Date(),
             })
-            .where(eq(subscribtionTable.id, subscribtion.id));
+            .where(eq(subscriptionTable.id, subscribtion.id));
 
         return c.json({}, 201);
     });

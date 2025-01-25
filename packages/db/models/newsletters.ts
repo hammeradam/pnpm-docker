@@ -15,7 +15,7 @@ export const newsletterTable = mysqlTable('newsletters', {
     ...timestamps,
 });
 
-export const subscribtionTable = mysqlTable('subscriptions', {
+export const subscriptionTable = mysqlTable('subscriptions', {
     id: int('id').primaryKey().autoincrement(),
     email: text('email').notNull(),
     newsletterId: int('newsletter_id')
@@ -30,5 +30,5 @@ export const subscribtionTable = mysqlTable('subscriptions', {
 });
 
 export const usersRelations = relations(newsletterTable, ({ many }) => ({
-    subscribers: many(subscribtionTable),
+    subscribers: many(subscriptionTable),
 }));

@@ -1,108 +1,52 @@
 version: '3'
 
 services:
-    traefik:
-        image: traefik:v2.11
-        command:
-            # - '--log.level=DEBUG'
-            - '--providers.docker'
-            - '--api.insecure=true'
-            - '--providers.docker.exposedbydefault=false'
-            - '--entrypoints.http.address=:80'
-            - '--entrypoints.https.address=:443'
-            - '--certificatesresolvers.letsencrypt.acme.tlschallenge=true'
-            # - '--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory'
-            - '--certificatesresolvers.letsencrypt.acme.email=hammeradam894@gmail.com'
-            - '--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json'
-        ports:
-            - '80:80'
-            - '443:443'
-        volumes:
-            - /etc/traefik:/etc/traefik
-            - /var/run/docker.sock:/var/run/docker.sock
-
     service_1:
         build:
             context: .
             dockerfile: Dockerfile
             target: service_1
-        depends_on:
-            - traefik
+        volumes:
+            - ./apps/service_1/src:/usr/src/app/src
+            - ./apps/service_1/package.json:/usr/src/app/package.json
+            - ./apps/service_1/pnpm-lock.yaml:/usr/src/app/pnpm-lock.yaml
         environment:
+            - NODE_ENV=development
             - PORT=3001
-        labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
-
-            - traefik.enable=true
-            - 'traefik.http.routers.http-service_1.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_1_ROUTE_PREFIX}`)'
-            # - traefik.http.routers.http-service_1.entryPoints=http
-            - traefik.http.routers.http-service_1.middlewares=redirect-to-https,gzip
-
-            - traefik.http.middlewares.gzip.compress=true
-            - traefik.http.middlewares.http-service_1-stripprefix.stripprefix.prefixes=${SERVICE_1_ROUTE_PREFIX}
-
-            # - traefik.http.routers.https-service_1.entryPoints=https
-            - 'traefik.http.routers.https-service_1.middlewares=http-service_1-stripprefix,gzip'
-            - 'traefik.http.routers.https-service_1.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_1_ROUTE_PREFIX}`)'
-            - traefik.http.routers.https-service_1.tls.certresolver=letsencrypt
-            - traefik.http.routers.https-service_1.tls=true
-        restart: unless-stopped
-        container_name: service_1
+        ports:
+            - '3001:3001'
+        command: ['nodemon', '--watch', 'src', '--exec', 'pnpm', 'start']
 
     service_2:
         build:
             context: .
             dockerfile: Dockerfile
             target: service_2
-        depends_on:
-            - traefik
+        volumes:
+            - ./apps/service_2/src:/usr/src/app/src
+            - ./apps/service_2/package.json:/usr/src/app/package.json
+            - ./apps/service_2/pnpm-lock.yaml:/usr/src/app/pnpm-lock.yaml
         environment:
+            - NODE_ENV=development
             - PORT=3002
-        labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+        ports:
+            - '3002:3002'
+        command: ['nodemon', '--watch', 'src', '--exec', 'pnpm', 'start']
 
-            - traefik.enable=true
-            - 'traefik.http.routers.http-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
-            # - traefik.http.routers.http-service_2.entryPoints=http
-            - traefik.http.routers.http-service_2.middlewares=redirect-to-https,gzip
+    db:
+        image: postgres:17-alpine
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        volumes:
+            - db:/var/lib/postgresql/data
 
-            - traefik.http.middlewares.gzip.compress=true
-            - traefik.http.middlewares.http-service_2-stripprefix.stripprefix.prefixes=${SERVICE_2_ROUTE_PREFIX}
+    cache:
+        image: redis:7.4-alpine
+        command: redis-server --save 20 1 --loglevel warning
+        volumes:
+            - cache:/data
 
-            # - traefik.http.routers.https-service_2.entryPoints=https
-            - 'traefik.http.routers.https-service_2.middlewares=http-service_2-stripprefix,gzip'
-            - 'traefik.http.routers.https-service_2.rule=Host(`${HOST}`) && PathPrefix(`${SERVICE_2_ROUTE_PREFIX}`)'
-            - traefik.http.routers.https-service_2.tls.certresolver=letsencrypt
-            - traefik.http.routers.https-service_2.tls=true
-        restart: unless-stopped
-        container_name: service_2
-
-    web:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: web
-        depends_on:
-            - traefik
-        labels:
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
-
-            - traefik.enable=true
-            - 'traefik.http.routers.http-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-            # - traefik.http.routers.http-web.entryPoints=http
-            - traefik.http.routers.http-web.middlewares=redirect-to-https,gzip
-
-            - traefik.http.middlewares.gzip.compress=true
-
-            # - traefik.http.routers.https-web.entryPoints=https
-            - 'traefik.http.routers.https-web.middlewares=gzip'
-            - 'traefik.http.routers.https-web.rule=Host(`${HOST}`) && PathPrefix(`/`)'
-            - traefik.http.routers.https-web.tls.certresolver=letsencrypt
-            - traefik.http.routers.https-web.tls=true
-        restart: unless-stopped
-        container_name: web
-
-volumes: {}
+volumes:
+    db:
+    cache:

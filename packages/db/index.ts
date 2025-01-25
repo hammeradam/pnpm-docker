@@ -6,7 +6,7 @@ import { drizzle } from 'drizzle-orm/mysql2';
 
 import {
     newsletterTable,
-    subscribtionTable,
+    subscriptionTable as subscriptionTable,
     usersRelations,
 } from './models/newsletters';
 
@@ -18,7 +18,11 @@ export const connection = await mysql.createConnection({
 });
 
 export const db = drizzle(connection, {
-    schema: { newsletterTable, subscribtionTable, usersRelations },
+    schema: {
+        newsletterTable,
+        subscriptionTable: subscriptionTable,
+        usersRelations,
+    },
     mode: 'default',
 });
 

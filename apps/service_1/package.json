@@ -7,10 +7,10 @@
         "dev:tsc": "tsc --watch --preserveWatchOutput",
         "dev:node": "node --env-file .env --watch dist/index.js",
         "dev:esbuild": "node watch.mjs",
-        "dev": "run-p dev:*",
+        "dev": "pnpm run \"/dev:/\"",
         "lint": "tsc",
         "build": "node build.mjs",
-        "start": "NODE_ENV=production node --env-file .env dist/index.js"
+        "start": "NODE_ENV=production node --env-file .env dist/index.mjs"
     },
     "dependencies": {
         "@repo/base_service": "workspace:*",

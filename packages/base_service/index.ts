@@ -14,6 +14,8 @@ export const createServer = ({
     port,
     log = true,
     inspect = false,
+    apiTitle = 'My API',
+    apiVersion = '1.0.0',
 }: {
     routes: {
         path: string;
@@ -22,6 +24,8 @@ export const createServer = ({
     port: number;
     log?: boolean;
     inspect?: boolean;
+    apiTitle?: string;
+    apiVersion?: string;
 }) => {
     const app = new OpenAPIHono();
 
@@ -29,9 +33,7 @@ export const createServer = ({
         app.use('*', logger());
     }
 
-    for (const route of routes) {
-        app.route(route.path, route.handler);
-    }
+    routes.forEach((route) => app.route(route.path, route.handler));
 
     red(`Server is running on port ${port}`);
 
@@ -42,8 +44,8 @@ export const createServer = ({
     app.doc('/doc', {
         openapi: '3.0.0',
         info: {
-            version: '1.0.0',
-            title: 'My API',
+            version: apiVersion,
+            title: apiTitle,
         },
     });
 
